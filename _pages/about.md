@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://www.uu.nl/en/research/intelligent-software-systems/intelligent-systems'>Intelligent Systems</a>, <a href='https://www.uu.nl/en'>Utrecht University </a>. #Address. Contacts. Moto. Etc.
+subtitle: <a href='https://www.uu.nl/en/research/intelligent-software-systems/intelligent-systems'>Intelligent Systems</a>, <a href='https://www.uu.nl/en'>Utrecht University</a>. #Address. Contacts. Moto. Etc.
 
 profile:
   align: right
