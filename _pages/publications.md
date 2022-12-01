@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: publications
-description: Here is the list of my publications.
+description: Work in progress:)
 years: [2023, 2022]
 nav: true
 nav_order: 1
