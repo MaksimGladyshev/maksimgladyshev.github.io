@@ -13,10 +13,10 @@
   contents:
     - title: PhD, Computer Science (in progress)
      institution: Utrecht University, Utrecht, Netherlands
-     year: '2020-'
+     year: 2020
      description:
-     - 'Doctoral advisors: Natasha Alechina (promotor), Mehdi Dastani (promotor), Dragan Doder (copromotor).'
-     - title: M.A. with honors, ’Politics. Economics. Philosophy’,
+     - 'Doctoral advisors: Natasha Alechina (promotor), Mehdi Dastani (promotor), Dragan Doder (copromotor)'.
+     - title: M.A. with honors, ’Politics. Economics. Philosophy’
       institution: Higher School of Economics, Moscow, Russia
       year: 2018-2020
       description:
@@ -26,7 +26,7 @@
       institution: Higher School of Economics, Moscow, Russia
       year: 2014-2018
       description:
-        - 'Thesis: . Graded 10/10' 
+        - 'Thesis: A Problem of the Emergence and Stability of Conventions (in Russian). Graded 10/10' 
         - 'Thesis supervisor: Vitaliy Dolgorukov'
 
 - title: Experience
