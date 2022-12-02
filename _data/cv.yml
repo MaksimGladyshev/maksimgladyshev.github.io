@@ -14,7 +14,7 @@
       year: 2020-now
       description:
         - 'Doctoral advisors: Natasha Alechina (promotor), Mehdi Dastani (promotor), Dragan Doder (copromotor).'
-    - title: 'M.A. with honors, Politics. Economics. Philosophy'
+    - title: 'M.A., Politics. Economics. Philosophy, with honors'
       institution: 'Higher School of Economics, Moscow, Russia'
       year: 2018-2020
       description:
@@ -28,26 +28,26 @@
         - 'Thesis supervisor: Vitaliy Dolgorukov'
 
 
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
+#- title: Honors and Awards
+ # type: time_table
+  #contents:
+   # - year: 1921
+    #  items: 
+     #   - Nobel Prize in Physics 
+      #  - Matteucci Medal
+    #- year: 2029
+     # items: 
+      #  - Max Planck Medal
 
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
+#- title: Academic Interests
+ # type: nested_list
+  #contents:
+   # - title: Topic 1.
+    #  items: 
+     #   - Description 1.
+      #  - Description 2.
+    #- title: Topic 2.
+     # items:
         - Description 1.
         - Description 2.
 
