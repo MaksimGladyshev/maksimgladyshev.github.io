@@ -3,8 +3,6 @@
   contents:
     - name: Full Name
       value: Maksim Gladyshev
-    #- name: Date of Birth
-     # value: 14th March 1879
     - name: Languages
       value: Russian (native), English (fluent)
 
@@ -13,7 +11,7 @@
   contents:
     - title: PhD, Computer Science (in progress)
      institution: Utrecht University, Utrecht, Netherlands
-     year: 2020-NOW
+     year: 2020-now
      description:
      - 'Doctoral advisors: Natasha Alechina (promotor), Mehdi Dastani (promotor), Dragan Doder (copromotor)'.
      - title: M.A. with honors, ’Politics. Economics. Philosophy’
