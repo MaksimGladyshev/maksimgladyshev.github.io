@@ -11,18 +11,23 @@
 - title: Education
   type: time_table
   contents:
-    - title: PhD, Computer Science, in progress
+    - title: PhD, Computer Science (in progress)
       institution: Utrecht University, Utrecht, Netherlands
       year: 2020-
       description:
             - 'Doctoral advisors: Natasha Alechina (promotor), Mehdi Dastani (promotor), Dragan Doder (copromotor).'
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+    - title: M.A. with honors, ’Politics. Economics. Philosophy’,
+      institution: Higher School of Economics, Moscow, Russia
+      year: 2018-2020
       description:
-        - Description 1.
-        - Description 2.
+        - 'Thesis: Systematization of The Results on Assessing The Degree of Manipulability of Majoritarian Voting Rules. Graded 10/10' 
+        - 'Thesis supervisor: Fuad Aleskerov'
+     - title: B.A., Philosophy
+      institution: Higher School of Economics, Moscow, Russia
+      year: 2014-2018
+      description:
+        - 'Thesis: . Graded 10/10' 
+        - 'Thesis supervisor: Vitaliy Dolgorukov'
 
 - title: Experience
   type: time_table
