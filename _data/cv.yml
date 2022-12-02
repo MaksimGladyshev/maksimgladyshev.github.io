@@ -12,9 +12,9 @@
   type: time_table
   contents:
     - title: PhD, Computer Science (in progress)
-     -institution: Utrecht University, Utrecht, Netherlands
-     -year: '2020-'
-      description:
+     institution: Utrecht University, Utrecht, Netherlands
+     year: '2020-'
+     description:
      - 'Doctoral advisors: Natasha Alechina (promotor), Mehdi Dastani (promotor), Dragan Doder (copromotor).'
      - title: M.A. with honors, ’Politics. Economics. Philosophy’,
       institution: Higher School of Economics, Moscow, Russia
