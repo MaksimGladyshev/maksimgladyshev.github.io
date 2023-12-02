@@ -6,7 +6,7 @@ subtitle: <a href='https://www.uu.nl/en/research/intelligent-software-systems/in
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: 4704_03.JPG
   image_circular: false # crops the image to make it circular
   address: >
     <p>Buys Ballotgebouw</p>
