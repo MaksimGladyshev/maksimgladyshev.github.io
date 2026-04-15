@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsibility for Ocean Plastic · 02 Causality</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/shared.css">
+<style>
+/* ── PAGE 02 LOCAL ── */
+.prose{font-size:15px;color:var(--sec);line-height:1.85;margin-bottom:20px}
+.prose strong{color:var(--text);font-weight:500}
+.prose em.t{color:var(--teal);font-style:normal}
+.prose em.w{color:var(--coral);font-style:normal}
+
+/* formulas */
+.formula-box{background:var(--surf);border:0.5px solid var(--border);border-left:2px solid var(--teal);padding:20px 28px;margin:24px 0;border-radius:0 4px 4px 0;font-family:var(--mono);font-size:14px;color:var(--text);line-height:1.8;overflow-x:auto}
+.formula-box .fl{color:var(--sec);font-size:12px;display:block;margin-top:8px;font-family:var(--body);font-style:italic}
+.formula-box.coral{border-left-color:var(--coral)}
+.formula-box.amber{border-left-color:var(--amber)}
+
+/* definition cards */
+.def-card{background:var(--surf);border:0.5px solid var(--border);padding:24px 28px;margin:24px 0;border-radius:4px}
+.def-card .def-tag{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.def-card .def-tag.coral{color:var(--coral)}
+.def-card .def-tag.amber{color:var(--amber)}
+.def-card .def-name{font-family:var(--serif);font-size:22px;color:var(--text);margin-bottom:12px}
+.def-card .def-body{font-size:14px;color:var(--sec);line-height:1.8}
+.def-card .def-body strong{color:var(--text);font-weight:500}
+.def-cond{padding:6px 0 6px 16px;border-left:1.5px solid var(--border);margin:8px 0;font-size:14px;color:var(--sec);line-height:1.7}
+.def-cond strong{color:var(--text);font-weight:500}
+
+/* interactive scenario boxes */
+.scenario{background:var(--surf);border:0.5px solid var(--border);border-radius:4px;overflow:hidden;margin:28px 0}
+.scenario-head{padding:16px 24px;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.scenario-head h4{font-family:var(--mono);font-size:12px;color:var(--text);letter-spacing:.06em}
+.scenario-toggle{font-family:var(--mono);font-size:11px;padding:5px 14px;border-radius:16px;border:0.5px solid var(--border);color:var(--muted);cursor:pointer;background:transparent;transition:all .2s}
+.scenario-toggle:hover,.scenario-toggle.active{border-color:var(--teal);color:var(--teal)}
+.scenario-body{padding:24px}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.scenario-node{text-align:center;padding:16px;border:0.5px solid var(--border);border-radius:4px;transition:border-color .3s,background .3s}
+.scenario-node.on{border-color:var(--teal);background:rgba(61,207,170,.06)}
+.scenario-node.off{border-color:var(--coral);background:rgba(224,90,58,.06)}
+.scenario-node .sn-var{font-family:var(--mono);font-size:13px;color:var(--text);margin-bottom:4px}
+.scenario-node .sn-val{font-family:var(--serif);font-size:28px;line-height:1}
+.scenario-node .sn-val.t{color:var(--teal)}.scenario-node .sn-val.w{color:var(--coral)}
+.scenario-result{margin-top:20px;padding:16px 20px;border-top:0.5px solid var(--border);font-size:14px;color:var(--sec);line-height:1.7}
+.scenario-result strong{color:var(--text)}
+.scenario-result .verdict{font-family:var(--mono);font-size:12px;padding:3px 10px;border-radius:10px;display:inline-block;margin-top:8px}
+.scenario-result .verdict.yes{background:rgba(61,207,170,.12);color:var(--teal)}
+.scenario-result .verdict.no{background:rgba(224,90,58,.12);color:var(--coral)}
+
+/* responsibility calculator */
+.resp-calc{background:var(--surf);border:0.5px solid var(--border);border-radius:4px;padding:28px;margin:28px 0}
+.resp-calc label{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.resp-calc label span{float:right;color:var(--teal);text-transform:none;letter-spacing:0}
+.resp-calc input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:var(--border);border-radius:2px;outline:none;margin-bottom:20px}
+.resp-calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--teal);cursor:pointer;border:2px solid var(--bg)}
+.resp-calc input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--teal);cursor:pointer;border:2px solid var(--bg)}
+/* belief sliders — amber to match the belief region */
+#rv-klo,#rv-khi{background:color-mix(in srgb,var(--amber) 25%,var(--border))}
+#rv-klo::-webkit-slider-thumb,#rv-khi::-webkit-slider-thumb{background:var(--amber)}
+#rv-klo::-moz-range-thumb,#rv-khi::-moz-range-thumb{background:var(--amber)}
+.resp-output{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);margin-top:16px}
+.resp-out-cell{background:var(--surf);padding:20px;text-align:center}
+.resp-out-cell .ro-n{font-family:var(--serif);font-size:32px;line-height:1;margin-bottom:6px}
+.resp-out-cell .ro-l{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+
+/* causal graph */
+.dag-wrap{position:relative;width:100%;overflow-x:auto}
+.dag-svg{display:block;margin:0 auto}
+
+/* section numbering */
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;margin-bottom:6px}
+
+/* harm table */
+.harm-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.harm-table th{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+.harm-table td{padding:10px 14px;color:var(--sec);border-bottom:0.5px solid var(--border);line-height:1.5}
+.harm-table td:first-child{font-family:var(--mono);color:var(--text);font-size:13px}
+
+@media(max-width:800px){
+  .scenario-grid{grid-template-columns:1fr}
+  .resp-output{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav>
+  <a class="logo" href="../index.html">Responsibility for Ocean Plastic</a>
+  <div class="nav-links">
+    <a href="01-evidence.html">01 · evidence</a>
+    <a href="02-causality.html" class="active">02 · causality</a>
+    <a href="03-model.html">03 · model</a>
+    <a href="04-references.html">04 · refs</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<div class="hero reveal">
+  <div class="hero-bg" style="background-image:url('../img/hero-plastic.jpg')"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <div class="kicker">
+      <div class="kicker-line"></div>
+      <div class="kicker-text">Actual Causation &amp; Responsibility</div>
+    </div>
+    <h1>What does it mean<br>to be <em>causally responsible?</em></h1>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NARRATIVE OPENING
+════════════════════════════════════════════════════════════ -->
+<div class="block reveal" style="padding-top:64px">
+  <div class="block-h" style="font-size:clamp(24px,3vw,34px)">A bottle on the <em>beach</em></div>
+  <p class="prose">Imagine you're walking along a beach and see a plastic bottle. Two natural questions come to mind: <em class="t">How did it get here?</em> and <em class="t">Who is responsible for this?</em></p>
+  <p class="prose">It was produced in a factory, then shipped, stocked on a shelf, bought by someone, used, and then thrown away. Then it wasn't properly collected or recycled, entered a river, traveled with the current, and eventually washed up here, at your feet.</p>
+  <p class="prose">Each step matters. If the bottle had never been produced, it wouldn't exist. If it had been disposed of properly, it might never have reached the ocean. If waste systems had worked differently, its journey could have ended elsewhere. In other words, <strong>the bottle is here because of a combination of multiple factors, not just one.</strong></p>
+
+  <p class="prose">Now comes the more complicated part. Who should be held responsible for this bottle on the beach?</p>
+  <div class="sp-list" style="margin-bottom:20px;max-width:680px">
+    <div class="sp-item a">The person who dropped it?</div>
+    <div class="sp-item a">The company that made it?</div>
+    <div class="sp-item a">The system that made single-use plastic the norm?</div>
+    <div class="sp-item a">The institutions that failed to manage waste effectively?</div>
+  </div>
+  <p class="prose">This is the question of <strong>causal responsibility</strong>. And even though many factors caused the problem, we don't necessarily see them all as equally responsible.</p>
+  <p class="prose">That plastic bottle at your feet is the end point of a long chain of various factors.</p>
+  <p class="prose">On this page we introduce the basics of the Theory of Actual Causality, which provides formal tools for making these intuitions precise.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 1: THE BUT-FOR TEST
+════════════════════════════════════════════════════════════ -->
+<div class="act-divider reveal">
+  <div class="act-number">Part I</div>
+  <div class="act-title">The simplest approach:<br>the <em>but-for</em> test</div>
+  <p class="act-sub">For centuries, philosophers and legal scholars have relied on a simple idea to determine whether something is a cause: <strong>X caused Y if, but for X, Y would not have happened.</strong> In other words, remove the suspected cause from the story: if the effect disappears, causation is established; if the effect remains, it was not the cause. In legal practice this is known as the <em>sine qua non</em> test. For simple cases it works well&thinsp;&mdash;&thinsp;but does it always work? Let's see.</p>
+</div>
+
+<!-- BUT-FOR IN ACTION: conjunctive example -->
+<div class="block reveal">
+
+  <div class="block-h">The but-for test <em>in action</em></div>
+  <p class="prose">Consider a simple example. Someone drops a plastic bottle on the ground near a river. A municipal waste collector passes by but doesn't pick it up. The bottle washes into the river. Both actions were needed for the bottle to enter the environment&thinsp;&mdash;&thinsp;if it hadn't been dropped, there would be nothing to collect; if the collector had picked it up, it would never have reached the water. Let's represent this with a <strong>causal graph</strong>: a diagram where each node is a variable and each edge shows direct causal influence.</p>
+
+  <!-- INTERACTIVE CAUSAL GRAPH: conjunctive -->
+  <div class="scenario" id="scn-conjunct">
+    <div class="scenario-head">
+      <h4>Interactive causal graph &mdash; click the nodes to toggle</h4>
+    </div>
+    <div class="scenario-body" style="display:flex;flex-direction:column;align-items:center">
+      <svg id="dag-conjunct" viewBox="0 0 520 260" width="520" height="260" style="display:block;max-width:100%">
+        <defs>
+          <marker id="arr2-on" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--teal)"/>
+          </marker>
+          <marker id="arr2-off" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--border)"/>
+          </marker>
+          <marker id="arr2-hot" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--coral)"/>
+          </marker>
+        </defs>
+
+        <!-- Edges -->
+        <line id="edge2-p-w" x1="130" y1="72" x2="235" y2="160" stroke="var(--coral)" stroke-width="1.5" marker-end="url(#arr2-hot)" style="transition:stroke .3s"/>
+        <line id="edge2-d-w" x1="390" y1="72" x2="285" y2="160" stroke="var(--coral)" stroke-width="1.5" marker-end="url(#arr2-hot)" style="transition:stroke .3s"/>
+
+        <!-- Node L (clickable) -->
+        <g id="node-p" style="cursor:pointer">
+          <rect x="20" y="30" width="220" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text x="130" y="50" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13">Person litters</text>
+          <text id="node-p-val" x="130" y="70" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Node C (clickable) -->
+        <g id="node-d" style="cursor:pointer">
+          <rect x="280" y="30" width="220" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text x="390" y="50" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13">Collector fails to pick up</text>
+          <text id="node-d-val" x="390" y="70" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Node E (computed) -->
+        <g id="node-w">
+          <rect x="130" y="160" width="260" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text id="node-w-label" x="260" y="180" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13">Bottle enters river</text>
+          <text id="node-w-val" x="260" y="200" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Equation -->
+        <text x="260" y="240" text-anchor="middle" fill="var(--muted)" font-family="'JetBrains Mono',monospace" font-size="11" id="dag2-eq">E = min(L, C) = min(1, 1) = 1</text>
+      </svg>
+
+      <div class="scenario-result" id="conj-result" style="width:100%">
+        <strong>Person litters and collector fails to pick up.</strong> The bottle enters the river. Remove either one and the pollution disappears. <em>Both</em> are but-for causes.<br>
+        <span class="verdict yes">But-for test: both L and C are causes</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose">Here the structural equation is <strong>E = min(L, C)</strong>&thinsp;&mdash;&thinsp;a logical AND. Both conditions must hold for the effect to occur. The but-for test handles this perfectly: if the person hadn't littered, or if the collector had picked it up, the bottle would never have reached the river. Each one is individually a but-for cause.</p>
+  <p class="prose">However, in other examples the but-for test may fail.</p>
+</div>
+
+<!-- PROBLEM 1: OVERDETERMINATION -->
+<div class="block reveal">
+
+  <div class="block-h">Problem 1: <em>Overdetermination</em></div>
+  <p class="prose">Now consider a different scenario. Two factories sit along a river, upstream of a water treatment plant. Each factory dumps plastic waste into the river. Either factory's waste <em>alone</em> would be enough to block the plant's water intake. The plant shuts down.</p>
+
+  <p class="prose">The causal graph looks the same&thinsp;&mdash;&thinsp;two parents, one child&thinsp;&mdash;&thinsp;but the structural equation is different. Instead of AND (both required), we have OR (either sufficient):</p>
+
+  <div class="scenario" id="scn-overdet">
+    <div class="scenario-head">
+      <h4>Interactive causal graph &mdash; click the factory nodes to toggle</h4>
+    </div>
+    <div class="scenario-body" style="display:flex;flex-direction:column;align-items:center">
+      <svg id="dag-factories" viewBox="0 0 520 260" width="520" height="260" style="display:block;max-width:100%">
+        <defs>
+          <marker id="arr-on" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--teal)"/>
+          </marker>
+          <marker id="arr-off" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--border)"/>
+          </marker>
+          <marker id="arr-hot" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--coral)"/>
+          </marker>
+        </defs>
+
+        <!-- Edges -->
+        <line id="edge-a-s" x1="130" y1="72" x2="235" y2="160" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arr-on)" style="transition:stroke .3s"/>
+        <line id="edge-b-s" x1="390" y1="72" x2="285" y2="160" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arr-on)" style="transition:stroke .3s"/>
+
+        <!-- Node A (clickable) -->
+        <g id="node-a" style="cursor:pointer">
+          <rect x="20" y="30" width="220" height="48" rx="6" fill="var(--surf)" stroke="var(--teal)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text id="node-a-label" x="130" y="50" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13" style="transition:fill .3s">Factory A dumps</text>
+          <text id="node-a-val" x="130" y="70" text-anchor="middle" fill="var(--teal)" font-family="'DM Serif Display',serif" font-size="20" font-weight="400" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Node B (clickable) -->
+        <g id="node-b" style="cursor:pointer">
+          <rect x="280" y="30" width="220" height="48" rx="6" fill="var(--surf)" stroke="var(--teal)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text id="node-b-label" x="390" y="50" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13" style="transition:fill .3s">Factory B dumps</text>
+          <text id="node-b-val" x="390" y="70" text-anchor="middle" fill="var(--teal)" font-family="'DM Serif Display',serif" font-size="20" font-weight="400" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Node S (computed, not clickable) -->
+        <g id="node-s">
+          <rect x="140" y="160" width="240" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text id="node-s-label" x="260" y="180" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13" style="transition:fill .3s">Plant shuts down</text>
+          <text id="node-s-val" x="260" y="200" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" font-weight="400" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Equation label -->
+        <text x="260" y="240" text-anchor="middle" fill="var(--muted)" font-family="'JetBrains Mono',monospace" font-size="11" id="dag-eq">S = max(A, B) = max(1, 1) = 1</text>
+      </svg>
+
+      <div class="scenario-result" id="od-result" style="width:100%">
+        <strong>Both factories dump.</strong> The plant shuts down. But removing either factory alone doesn't change the outcome&thinsp;&mdash;&thinsp;the other's waste is sufficient. The but-for test says: <em>neither</em> is the cause.<br>
+        <span class="verdict no">But-for test: no cause identified</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose">This situation is called <strong>overdetermination</strong>: multiple sufficient causes converge, and each one is individually dispensable.</p>
+  <p class="prose">Note that while neither factory individually passes the but-for test, the <strong>set {A = 1, B = 1}</strong> does. But for <em>both</em> factories dumping, the plant would not have shut down. So, <strong>causes can be sets of variables</strong>, not just individual ones.</p>
+  <p class="prose">And this is not a toy problem. In environmental context, overdetermination is the norm. Ocean plastic does not come from a single source. Every country's waste is individually dispensable&thinsp;&mdash;&thinsp;the ocean would still be polluted without any single nation's contribution.</p>
+</div>
+
+<!-- PROBLEM 2: PREEMPTION -->
+<div class="block reveal">
+
+  <div class="block-h">Problem 2: <em>Preemption</em></div>
+  <p class="prose">Consider another example. Two ships carrying plastic waste are heading toward the same harbour to dump their cargo illegally. Ship A arrives first and dumps its waste. The authorities detect the pollution and <strong>block the passage</strong> into the harbour. Ship B, arriving later, is turned away, so it cannot enter.</p>
+  <p class="prose">The harbour is polluted. Ship A's waste is floating in the water. Ship B never got the chance to dump. Yet here is the puzzle: <em>had Ship A not dumped, the passage would have stayed open, and Ship B would have dumped its waste instead.</em> The harbour would be polluted either way.</p>
+  <p class="prose">Apply the but-for test: <em>but for Ship A's dumping, would the harbour be polluted?</em> Yes&thinsp;&mdash;&thinsp;Ship B would have done it. So the but-for test says Ship A is not the cause. But that is clearly wrong: Ship A's waste is literally the waste in the water. Ship B's dumping is purely hypothetical&thinsp;&mdash;&thinsp;it never happened.</p>
+  <p class="prose">This is called <strong>preemption</strong>: one cause gets there first and blocks another one. The causal graph needs <strong>intermediate variables</strong> to make the blocking visible:</p>
+
+  <div class="scenario" id="scn-preempt">
+    <div class="scenario-head">
+      <h4>Interactive causal graph &mdash; click the ship nodes to toggle</h4>
+    </div>
+    <div class="scenario-body" style="display:flex;flex-direction:column;align-items:center">
+      <svg id="dag-preempt" viewBox="0 0 760 340" width="760" height="340" style="display:block;max-width:100%">
+        <defs>
+          <marker id="arr3-on" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--teal)"/>
+          </marker>
+          <marker id="arr3-off" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--border)"/>
+          </marker>
+          <marker id="arr3-hot" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3.5 L 0 7 z" fill="var(--coral)"/>
+          </marker>
+        </defs>
+
+        <!-- Edges: Row 0 → Row 1 -->
+        <line id="pe-da-ar" x1="130" y1="72" x2="130" y2="140" stroke="var(--coral)" stroke-width="1.5" marker-end="url(#arr3-hot)" style="transition:stroke .3s"/>
+        <line id="pe-db-br" x1="630" y1="72" x2="630" y2="140" stroke="var(--border)" stroke-width="1.5" marker-end="url(#arr3-off)" style="transition:stroke .3s"/>
+        <!-- Inhibiting edge: A dumps → passage blocked → blocks B -->
+        <line id="pe-ar-br" x1="260" y1="165" x2="500" y2="165" stroke="var(--coral)" stroke-width="1.5" marker-end="url(#arr3-hot)" style="transition:stroke .3s"/>
+        <text id="pe-ar-br-lbl" x="380" y="155" text-anchor="middle" fill="var(--muted)" font-family="'JetBrains Mono',monospace" font-size="10">passage blocked</text>
+
+        <!-- Edges: Row 1 → Row 2 -->
+        <line id="pe-ar-p" x1="180" y1="188" x2="320" y2="256" stroke="var(--coral)" stroke-width="1.5" marker-end="url(#arr3-hot)" style="transition:stroke .3s"/>
+        <line id="pe-br-p" x1="580" y1="188" x2="440" y2="256" stroke="var(--border)" stroke-width="1.5" marker-end="url(#arr3-off)" style="transition:stroke .3s"/>
+
+        <!-- Row 0: Ships (clickable) -->
+        <g id="node-da" style="cursor:pointer">
+          <rect x="20" y="30" width="220" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text x="130" y="50" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13">Ship A wants to dump</text>
+          <text id="node-da-val" x="130" y="70" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+        <g id="node-db" style="cursor:pointer">
+          <rect x="520" y="30" width="220" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" style="transition:stroke .3s"/>
+          <text x="630" y="50" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13">Ship B wants to dump</text>
+          <text id="node-db-val" x="630" y="70" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Row 1: Intermediate — who actually reaches -->
+        <g>
+          <rect x="10" y="140" width="240" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" id="node-ar-rect" style="transition:stroke .3s"/>
+          <text id="node-ar-label" x="130" y="160" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="12">A reaches the harbour</text>
+          <text id="node-ar-val" x="130" y="180" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+        <g>
+          <rect x="510" y="140" width="240" height="48" rx="6" fill="var(--surf)" stroke="var(--border)" stroke-width="1.5" id="node-br-rect" style="transition:stroke .3s"/>
+          <text id="node-br-label" x="630" y="160" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="12">B reaches the harbour</text>
+          <text id="node-br-val" x="630" y="180" text-anchor="middle" fill="var(--muted)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 0</text>
+        </g>
+
+        <!-- Row 2: Outcome -->
+        <g>
+          <rect x="260" y="256" width="240" height="48" rx="6" fill="var(--surf)" stroke="var(--coral)" stroke-width="1.5" id="node-pe-rect" style="transition:stroke .3s"/>
+          <text id="node-pe-label" x="380" y="276" text-anchor="middle" fill="var(--text)" font-family="'JetBrains Mono',monospace" font-size="13">Harbour polluted</text>
+          <text id="node-pe-val" x="380" y="296" text-anchor="middle" fill="var(--coral)" font-family="'DM Serif Display',serif" font-size="20" style="transition:fill .3s">= 1</text>
+        </g>
+
+        <!-- Equations -->
+        <text x="380" y="330" text-anchor="middle" fill="var(--muted)" font-family="'JetBrains Mono',monospace" font-size="10" id="pe-eq">AH = DA = 1 · BH = DB ∧ ¬AH = 0 · P = AH ∨ BH = 1</text>
+      </svg>
+
+      <div class="scenario-result" id="pe-result" style="width:100%">
+        <strong>Ship A wants to dump, passage is blocked, Ship B is turned away.</strong> A's waste is in the harbour. But the but-for test says A is not the cause: had A not dumped, B would have. The harbour would be polluted either way.<br>
+        <span class="verdict no">But-for test: A is not a cause (wrong!)</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose">The middle row makes the blocking mechanism visible. Ship A wants to dump, so <strong>AH = 1</strong> (A's waste is in the harbour). The authorities block the passage, which prevents Ship B from entering: <strong>BH = DB &and; &not;AH = 0</strong>. Ship B wanted to dump (DB = 1) but couldn't get in (BH = 0).</p>
+  <p class="prose">The but-for test identifies the set of <em>both</em> variables&thinsp;&mdash;&thinsp;DA and DB&thinsp;&mdash;&thinsp;as the cause of pollution, despite the fact that the actual pollution came entirely from Ship&nbsp;A.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 2: BETTER DEFINITIONS OF CAUSE
+════════════════════════════════════════════════════════════ -->
+<div class="act-divider reveal">
+  <div class="act-number">Part II</div>
+  <div class="act-title">Definitions that<br><em>actually work</em></div>
+  <p class="act-sub">The problems above prompted philosophers and computer scientists to develop more precise definitions of causation. Several influential proposals have emerged over the past few decades, each capturing the right intuitions across the hard cases.</p>
+</div>
+
+<div class="block reveal">
+  <div class="block-h">Beyond the but-for test</div>
+  <p class="prose">The core idea shared by all improved definitions is to reason about <strong>interventions</strong>: instead of simply asking "would the effect have disappeared if the cause had been absent?", we ask what would happen if we <em>forced</em> a variable to take a different value while holding other parts of the world fixed. This lets us isolate individual contributions even when multiple causes are present simultaneously.</p>
+  <p class="prose">The most influential formal framework is the <strong>Halpern-Pearl definition</strong> (2001, revised 2015), which introduces a <em>witness set</em> &mdash; a set of variables held fixed at their actual values &mdash; to reveal when a factor is decisive. Applied to our river example: when k&nbsp;=&nbsp;120, removing either company's dump alone saves the fish, so both are causes. When k&nbsp;=&nbsp;100, removing B while A still dumps 100 kg changes nothing &mdash; no witness set can make B pivotal &mdash; so B is not a cause.</p>
+  <p class="prose">A closely related approach is the <strong>NESS test</strong> (Wright 1985, formalised by Beckers): a factor is a cause if it was a <em>Necessary Element of a Sufficient Set</em> for the outcome. Rather than counterfactual dependence, it asks whether the factor was part of a package of conditions that together were enough to produce the harm. Both definitions agree on the river example and on most real-world cases; they diverge only on subtle edge cases that legal and moral philosophers continue to debate.</p>
+  <p class="prose">Other proposals include probabilistic accounts (a cause raises the probability of the effect), mechanistic accounts (a cause transmits a physical process to the effect), and contrastive accounts (causation is always relative to a specified alternative). Each handles some cases better than others. For the collective-action problems at the heart of this project &mdash; where many actors contribute small amounts to a shared harm &mdash; the structural-model approaches of Halpern-Pearl and NESS are the most useful, because they can precisely identify which contributions matter and which are redundant.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 3: DEGREE OF RESPONSIBILITY AND BLAME
+════════════════════════════════════════════════════════════ -->
+<div class="act-divider reveal">
+  <div class="act-number">Part III</div>
+  <div class="act-title">From cause to <em>responsibility</em></div>
+  <p class="act-sub">The question of causation is binary: yes or no. But the responsibility comes in degrees. A lone polluter bears more causal weight than one of a thousand.</p>
+</div>
+
+<div class="block reveal">
+
+  <div class="block-h">Degree of <em>responsibility</em></div>
+  <p class="prose">Chockler and Halpern (2004) proposed the first graded measure of causal responsibility. The idea is elegant: <strong>how close was variable X to being a cause?</strong> If X is already a cause (removing X alone changes the outcome), it has maximal responsibility. If other things must also change before X becomes pivotal, its degree of responsibility decreases.</p>
+
+  <div class="formula-box">
+    Given X = x and an outcome &phi;, the degree of responsibility is:<br>
+    dr(X = x, &phi;) = 1 / (1 + k)
+    <span class="fl">where k is the minimal number of changes to other variables needed to make X = x a cause of &phi;.</span>
+  </div>
+
+  <p class="prose">When <strong>k = 0</strong>, X is already pivotal and bears full responsibility: dr = 1. When <strong>k = 5</strong>, five other variables must change before X becomes the tipping point: dr = 1/6. The larger the coalition shielding X from pivotality, the lower its individual responsibility.</p>
+
+  <!-- INTERACTIVE: voting/responsibility calculator -->
+  <div class="scenario" id="scn-voting">
+    <div class="scenario-head">
+      <h4>Interactive: The export vote</h4>
+    </div>
+    <div class="scenario-body">
+      <p style="font-size:14px;color:var(--sec);line-height:1.7;margin-bottom:20px">Imagine a parliament votes on whether to allow plastic waste exports. The policy passes by majority. But how responsible is each one?</p>
+      <div class="resp-calc">
+        <label>Total "yes" votes <span id="rc-yes-val">51</span></label>
+        <input type="range" id="rc-yes" min="51" max="101" value="51" step="1">
+        <label>Total "no" votes <span id="rc-no-val">50</span></label>
+        <input type="range" id="rc-no" min="0" max="50" value="50" step="1">
+        <div class="resp-output">
+          <div class="resp-out-cell">
+            <div class="ro-n" id="rc-k" style="color:var(--teal)">5</div>
+            <div class="ro-l">k (changes needed)</div>
+          </div>
+          <div class="resp-out-cell">
+            <div class="ro-n" id="rc-dr" style="color:var(--teal)">1/6</div>
+            <div class="ro-l">dr (responsibility)</div>
+          </div>
+          <div class="resp-out-cell">
+            <div class="ro-n" id="rc-desc" style="color:var(--sec);font-size:16px;line-height:1.3">Each voter shares responsibility with 5 others</div>
+            <div class="ro-l">interpretation</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px">Try a 51&ndash;50 vote: each "yes" voter has dr&nbsp;=&nbsp;1 (fully pivotal). Try 101&ndash;0: each has dr&nbsp;=&nbsp;1/51 (deeply redundant). This is the mathematical signature of diffusion of responsibility.</p>
+    </div>
+  </div>
+</div>
+
+<div class="block reveal">
+
+  <div class="block-h">Degree of <em>blameworthiness</em></div>
+  <p class="prose">Responsibility deals with the actual world, blameworthiness deals with the <strong>agent's knowledge</strong>. An agent who did not and could not know the consequences of their actions is less blameworthy, even if their responsibility is high. Conversely, an agent who knowingly chose a harmful alternative when a safer option existed is more blameworthy.</p>
+
+  <p class="prose">The concept has been developed across three key papers. <strong>Chockler &amp; Halpern (2004)</strong> introduced the first formal notion: the degree of blame as the <strong>expected degree of responsibility</strong> over an agent's epistemic state&thinsp;&mdash;&thinsp;the probability distribution over causal settings the agent considers possible. If you don't know your plastic will leak, your blame is lower than your responsibility.</p>
+
+  <p class="prose"><strong>Halpern &amp; Kleiman-Weiner (2018)</strong> refined the definition for a single agent by incorporating two additional factors: how much the agent's action <strong>raised the probability of harm</strong> compared to an alternative action, and how <strong>costly</strong> that alternative would have been. If a costless alternative existed, blame is high; if avoiding harm was expensive or difficult, blame is mitigated.</p>
+
+  <p class="prose"><strong>Friedenberg &amp; Halpern (2019)</strong> extended the framework to <strong>multi-agent settings</strong>&thinsp;&mdash;&thinsp;exactly the kind we face with ocean plastic. When thousands of agents each contribute a tiny amount, any one individual's contribution is near zero, so single-agent definitions assign near-zero blame to everyone. The group is clearly blameworthy, yet no individual is. Friedenberg &amp; Halpern solved this by first defining <strong>group blameworthiness</strong> and then dividing it among individuals using the <strong>Shapley value</strong>&thinsp;&mdash;&thinsp;a game-theoretic tool that assigns each agent a share based on their marginal contribution across all possible coalitions. They proved the Shapley value is the <em>unique</em> allocation satisfying three natural axioms: individual blames sum to the group blame, symmetric agents receive equal blame, and agents with larger marginal contributions receive more blame.</p>
+
+  <!-- INTERACTIVE: River pollution / blameworthiness widget -->
+  <div class="scenario" id="scn-river">
+    <div class="scenario-head">
+      <h4>Interactive: The polluted river</h4>
+    </div>
+    <div class="scenario-body">
+      <p style="font-size:14px;color:var(--sec);line-height:1.7;margin-bottom:20px">Two companies dump pollutant into a river. If the total reaches the lethal threshold <em>k</em>, the fish die. The companies don't know the exact threshold&thinsp;&mdash;&thinsp;they only have beliefs about its range. <strong>Degree of blame</strong> is the expected degree of responsibility over those beliefs. In counterfactual scenarios, each company either dumps its full amount or nothing at all.</p>
+      <div class="resp-calc">
+
+        <!-- Row 1: fixed dump amounts -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div style="padding:14px 18px;background:var(--bg);border:0.5px solid var(--border);border-radius:4px">
+            <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Company A dumps</div>
+            <div style="font-family:var(--serif);font-size:28px;color:var(--coral);line-height:1">100 kg</div>
+          </div>
+          <div style="padding:14px 18px;background:var(--bg);border:0.5px solid var(--border);border-radius:4px">
+            <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Company B dumps</div>
+            <div style="font-family:var(--serif);font-size:28px;color:var(--amber);line-height:1">60 kg</div>
+          </div>
+        </div>
+
+        <!-- Row 2: actual threshold -->
+        <label>Actual threshold <em>k</em> <span id="rv-k-val">120</span> kg</label>
+        <input type="range" id="rv-k" min="10" max="200" value="120" step="1">
+
+        <!-- Row 3: epistemic state — belief range -->
+        <div style="margin-top:8px;padding:16px;background:var(--bg);border:0.5px solid var(--border);border-radius:4px">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Epistemic state &mdash; companies believe <em>k</em> is between:</div>
+          <label>Lower bound <span id="rv-klo-val" style="color:var(--amber)">40</span> kg</label>
+          <input type="range" id="rv-klo" min="10" max="200" value="40" step="1">
+          <label>Upper bound <span id="rv-khi-val" style="color:var(--amber)">180</span> kg</label>
+          <input type="range" id="rv-khi" min="10" max="200" value="180" step="1">
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:4px">Uniform distribution over [<span id="rv-range-lbl">40, 180</span>]. Narrowing the range simulates gaining knowledge about the ecosystem.</div>
+        </div>
+
+        <!-- Visual: dump bars row -->
+        <div style="margin-top:20px;margin-bottom:4px;font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between">
+          <span>DUMP AMOUNTS</span><span id="rv-total-lbl">Total: 160 kg</span><span>200 kg</span>
+        </div>
+        <div style="position:relative;height:36px;background:var(--bg);border:0.5px solid var(--border);border-radius:4px;overflow:hidden" id="rv-bar-wrap">
+          <div id="rv-bar-a" style="position:absolute;left:0;top:0;height:100%;background:var(--coral);transition:width .2s;display:flex;align-items:center;padding-left:8px">
+            <span style="font-family:var(--mono);font-size:11px;color:#fff;font-weight:500;white-space:nowrap">A · 100 kg</span>
+          </div>
+          <div id="rv-bar-b" style="position:absolute;top:0;height:100%;background:#c87f0a;transition:left .2s,width .2s;display:flex;align-items:center;padding-left:8px">
+            <span style="font-family:var(--mono);font-size:11px;color:#fff;font-weight:500;white-space:nowrap">B · 60 kg</span>
+          </div>
+          <!-- Actual k line -->
+          <div id="rv-bar-k" style="position:absolute;top:0;height:100%;width:2px;background:#fff;transition:left .2s;z-index:2"></div>
+          <span id="rv-bar-k-lbl" style="position:absolute;top:2px;font-family:var(--mono);font-size:10px;color:#fff;transition:left .2s;z-index:2;text-shadow:0 0 4px #000">k</span>
+        </div>
+
+        <!-- Visual: belief range row -->
+        <div style="margin-top:12px;margin-bottom:4px;font-family:var(--mono);font-size:10px;color:var(--amber);display:flex;justify-content:space-between">
+          <span>BELIEF RANGE</span><span>200 kg</span>
+        </div>
+        <div style="position:relative;height:28px;background:var(--bg);border:0.5px solid var(--border);border-radius:4px;overflow:hidden">
+          <!-- Belief shaded region -->
+          <div id="rv-bar-belief" style="position:absolute;top:0;height:100%;background:rgba(200,127,10,.22);border-left:2px solid var(--amber);border-right:2px solid var(--amber);transition:left .2s,width .2s"></div>
+          <!-- k line repeated for reference -->
+          <div id="rv-bar-k2" style="position:absolute;top:0;height:100%;width:2px;background:#fff;transition:left .2s"></div>
+          <span id="rv-bar-belief-lbl" style="position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:var(--amber);transition:left .2s;padding-left:6px">belief range</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:16px;margin-top:4px">
+          <span>0 kg</span><span>200 kg</span>
+        </div>
+
+        <!-- Outcome -->
+        <div id="rv-outcome" style="text-align:center;padding:12px;border-radius:4px;font-family:var(--mono);font-size:13px;margin-bottom:16px;border:0.5px solid var(--border);background:var(--bg)">
+        </div>
+
+        <!-- Results grid: 2×2 — responsibility (actual) and blame (expected) -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border)">
+          <div class="resp-out-cell">
+            <div class="ro-l" style="margin-bottom:10px">Company A</div>
+            <div id="rv-a-dr" style="font-family:var(--serif);font-size:26px;color:var(--teal);line-height:1">dr = 1</div>
+            <div class="ro-l" style="margin-top:4px">responsibility (actual <em>k</em>)</div>
+            <div id="rv-a-db" style="font-family:var(--serif);font-size:26px;color:var(--amber);line-height:1;margin-top:12px">db = 0.75</div>
+            <div class="ro-l" style="margin-top:4px">blame (over beliefs)</div>
+          </div>
+          <div class="resp-out-cell">
+            <div class="ro-l" style="margin-bottom:10px">Company B</div>
+            <div id="rv-b-dr" style="font-family:var(--serif);font-size:26px;color:var(--teal);line-height:1">dr = 1</div>
+            <div class="ro-l" style="margin-top:4px">responsibility (actual <em>k</em>)</div>
+            <div id="rv-b-db" style="font-family:var(--serif);font-size:26px;color:var(--amber);line-height:1;margin-top:12px">db = 0.50</div>
+            <div class="ro-l" style="margin-top:4px">blame (over beliefs)</div>
+          </div>
+        </div>
+
+      </div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px">Try narrowing the belief range to see how <strong>gaining knowledge</strong> changes blame. A company that studies the ecosystem and learns k is low gets a different blame score than one that remains ignorant.</p>
+    </div>
+  </div>
+
+  <p class="prose">This is where <strong>information matters morally</strong>. A consumer who has read the Lobelle et al. (2024) and Navarre et al. (2024) data knows that a significant portion of Dutch plastic is exported and that export destinations have high leakage rates. This consumer has a different epistemic state, and therefore higher blameworthiness, than an uninformed consumer, <em>even though their actions and their causal responsibility are identical</em>.</p>
+
+  <div class="callout" style="margin-top:24px">
+    <p><strong>The asymmetry of knowledge.</strong> A municipality that commissions a material-flow study and discovers its exports leak to the ocean cannot return to a low-blame state of ignorance. The study itself changes the epistemic state, which changes blameworthiness for all subsequent decisions. This is why the Lobelle et al. (2024) and Navarre et al. (2024) studies are not merely descriptive&thinsp;&mdash;&thinsp;they are morally consequential.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 4: QUANTIFYING HARM
+════════════════════════════════════════════════════════════ -->
+<div class="act-divider reveal">
+  <div class="act-number">Part IV</div>
+  <div class="act-title">From responsibility<br>to <em>quantified harm</em></div>
+  <p class="act-sub">We can now say who caused what, and how much responsibility they bear. The final step is measuring the harm itself&thinsp;&mdash;&thinsp;not as a vague notion of damage, but as a precise quantity grounded in the causal structure.</p>
+</div>
+
+<div class="block reveal">
+
+  <div class="block-h">Beckers' definition of <em>harm</em></div>
+  <p class="prose">Beckers, Chockler, and Halpern (2024) proposed a definition of harm that avoids the traps that plague simpler accounts. Their approach introduces two key ingredients on top of the structural causal model:</p>
+
+  <div class="def-card">
+    <div class="def-tag amber">Definition</div>
+    <div class="def-name">Causal Utility Model</div>
+    <div class="def-body">
+      A causal model extended with:
+      <div class="def-cond"><strong>O</strong> &mdash; a distinguished outcome variable whose values represent the possible states of affairs we care about (e.g., amount of plastic in the ocean).</div>
+      <div class="def-cond"><strong>u : R(O) &rarr; [0, 1]</strong> &mdash; a utility function mapping each outcome to a value between 0 (worst) and 1 (best), representing the agent's welfare.</div>
+      <div class="def-cond"><strong>d &isin; [0, 1]</strong> &mdash; a default utility. The welfare level the agent "should" have received in the absence of any noteworthy intervention. This is the baseline against which harm is measured.</div>
+    </div>
+  </div>
+
+  <p class="prose">The default utility d is crucial. It answers the question: <em>what outcome was the agent entitled to expect?</em> For ocean ecosystems, a natural default might be the pre-industrial plastic load (essentially zero). For a municipality, it might be the leakage rate achievable with current best-practice waste management.</p>
+
+  <div class="def-card">
+    <div class="def-tag coral">Definition</div>
+    <div class="def-name">Harm (Beckers, Chockler &amp; Halpern 2024)</div>
+    <div class="def-body">
+      <strong>X = x</strong> harms agent ag in (M, u) if:
+      <div class="def-cond"><strong>H1 (Below default).</strong> The actual outcome's utility is below the default: u(O = o) &lt; d. The agent is worse off than they should be.</div>
+      <div class="def-cond"><strong>H2 (Contrastive cause).</strong> There exists an alternative value x&prime; and an alternative outcome o&prime; such that "X&nbsp;=&nbsp;x rather than X&nbsp;=&nbsp;x&prime;" is an actual cause (in the HP sense) of "O&nbsp;=&nbsp;o rather than O&nbsp;=&nbsp;o&prime;", and u(O = o) &lt; u(O = o&prime;). The action caused a worse outcome than some available alternative.</div>
+      <div style="margin-top:12px"><strong>Strict harm</strong> additionally requires:</div>
+      <div class="def-cond"><strong>H3 (No worse alternative).</strong> The counterfactual outcome from choosing x&prime; is at least as good as the actual outcome. This rules out cases where the agent chose the lesser evil.</div>
+    </div>
+  </div>
+
+  <p class="prose">The <strong>contrastive</strong> structure is what makes this definition work. It doesn't just ask "is the outcome bad?" (H1). It asks "is there a specific alternative action that would have produced a better outcome through a genuine causal pathway?" (H2). And it checks that the alternative isn't itself harmful (H3).</p>
+</div>
+
+<div class="block reveal">
+
+  <div class="block-h"><em>Quantifying</em> the harm</div>
+  <p class="prose">The qualitative definition tells us whether harm occurred. The quantitative extension (Beckers, Chockler &amp; Halpern, 2023) tells us <em>how much</em>. The idea is to combine the utility loss with the degree of causal responsibility:</p>
+
+  <div class="formula-box coral">
+    harm(X = x, ag) = (d &minus; u(O)) &times; dr(X = x, O = o)
+    <span class="fl">The harm an action causes equals the utility shortfall below the default, weighted by the degree to which the action is responsible for that shortfall.</span>
+  </div>
+
+  <p class="prose">This formula captures two independent dimensions: <strong>how bad</strong> the outcome is (the utility gap), and <strong>how responsible</strong> the agent is for it (the degree of responsibility). An agent who is highly responsible for a minor harm, or slightly responsible for a catastrophic harm, both register as moderate values.</p>
+
+  <!-- INTERACTIVE: harm computation -->
+  <div class="scenario" id="scn-harm">
+    <div class="scenario-head">
+      <h4>Interactive: Computing harm for a Dutch municipality</h4>
+    </div>
+    <div class="scenario-body">
+      <p style="font-size:14px;color:var(--sec);line-height:1.7;margin-bottom:20px">A municipality exports plastic waste. Some of it leaks to the ocean. How much quantified harm does this cause?</p>
+      <div class="resp-calc">
+        <label>Actual leakage (kt/yr) <span id="hc-leak-val">6.5</span></label>
+        <input type="range" id="hc-leak" min="0" max="20" value="6.5" step="0.1">
+        <label>Default (acceptable) leakage (kt/yr) <span id="hc-default-val">0.5</span></label>
+        <input type="range" id="hc-default" min="0" max="10" value="0.5" step="0.1">
+        <label>Degree of responsibility <span id="hc-dr-val">0.34</span></label>
+        <input type="range" id="hc-dr" min="0" max="1" value="0.34" step="0.01">
+      </div>
+
+      <table class="harm-table">
+        <tr><th>Component</th><th>Value</th><th>Meaning</th></tr>
+        <tr><td>u(O)</td><td id="ht-uo">0.675</td><td>Utility of actual outcome (normalised: 0 = 20 kt leakage, 1 = 0 kt)</td></tr>
+        <tr><td>d</td><td id="ht-d">0.975</td><td>Default utility (what "acceptable" leakage maps to)</td></tr>
+        <tr><td>d &minus; u(O)</td><td id="ht-gap" style="color:var(--coral)">0.300</td><td>Utility shortfall below default</td></tr>
+        <tr><td>dr</td><td id="ht-dr">0.34</td><td>Degree of responsibility</td></tr>
+        <tr><td style="color:var(--coral)">harm</td><td id="ht-harm" style="color:var(--coral)">0.102</td><td>Quantified harm = shortfall &times; responsibility</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <p class="prose">Notice what happens when you increase the default. If society decides that <em>any</em> ocean leakage is unacceptable (default = 0 kt), the utility gap widens and harm increases. If society accepts some leakage as inevitable (default = 5 kt), the gap narrows. <strong>The choice of default is a moral and political choice</strong>, not a scientific one. The causal model tells you the consequences; it does not tell you what you should have expected.</p>
+</div>
+
+
+<div class="page-footer reveal">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a class="pill" href="#">&uarr; top</a>
+    <a class="pill" href="03-model.html">03 &middot; model &rarr;</a>
+  </div>
+</div>
+
+<script src="../js/shared.js"></script>
+<script>
+(function(){
+  /* ── CONJUNCTIVE GRAPH (1.2) ── */
+  var cP = 1, cD = 1;
+  var nodeP = document.getElementById('node-p');
+  var nodeD = document.getElementById('node-d');
+
+  function conjUpdate(){
+    var w = Math.min(cP, cD);
+    var teal = 'var(--teal)', coral = 'var(--coral)', border = 'var(--border)';
+
+    // Node L (person litters): 1 = bad (coral), 0 = good (teal)
+    nodeP.querySelector('rect').setAttribute('stroke', cP ? coral : teal);
+    document.getElementById('node-p-val').textContent = '= ' + cP;
+    document.getElementById('node-p-val').setAttribute('fill', cP ? coral : teal);
+
+    // Node C (collector fails): 1 = bad (coral), 0 = good (teal)
+    nodeD.querySelector('rect').setAttribute('stroke', cD ? coral : teal);
+    document.getElementById('node-d-val').textContent = '= ' + cD;
+    document.getElementById('node-d-val').setAttribute('fill', cD ? coral : teal);
+
+    // Edges
+    var eP = document.getElementById('edge2-p-w');
+    var eD = document.getElementById('edge2-d-w');
+    eP.setAttribute('stroke', cP ? coral : border);
+    eP.setAttribute('marker-end', cP ? 'url(#arr2-hot)' : 'url(#arr2-off)');
+    eD.setAttribute('stroke', cD ? coral : border);
+    eD.setAttribute('marker-end', cD ? 'url(#arr2-hot)' : 'url(#arr2-off)');
+
+    // Node W
+    document.getElementById('node-w').querySelector('rect').setAttribute('stroke', w ? coral : teal);
+    document.getElementById('node-w-val').textContent = '= ' + w;
+    document.getElementById('node-w-val').setAttribute('fill', w ? coral : teal);
+    document.getElementById('node-w-label').textContent = w ? 'Bottle enters river' : 'Bottle doesn\u2019t enter river';
+
+    // Equation
+    document.getElementById('dag2-eq').textContent = 'E = min(L, C) = min(' + cP + ', ' + cD + ') = ' + w;
+
+    // Result
+    var res = document.getElementById('conj-result');
+    if(cP && cD){
+      res.innerHTML = '<strong>Person litters and collector fails to pick up.</strong> The bottle enters the river. Remove either one and the pollution disappears. <em>Both</em> are but-for causes.<br><span class="verdict yes">But-for test: both L and C are causes</span>';
+    } else if(cP && !cD){
+      res.innerHTML = '<strong>Person litters but collector picks it up.</strong> The bottle is removed before reaching the river. No pollution.<br><span class="verdict yes">No effect \u2014 no cause needed</span>';
+    } else if(!cP && cD){
+      res.innerHTML = '<strong>Nobody litters.</strong> There is nothing for the collector to miss. No pollution.<br><span class="verdict yes">No effect \u2014 no cause needed</span>';
+    } else {
+      res.innerHTML = '<strong>Nobody litters and collector does their job.</strong> No bottle, no pollution.<br><span class="verdict yes">No effect \u2014 no cause needed</span>';
+    }
+  }
+
+  nodeP.addEventListener('click', function(){ cP = 1 - cP; conjUpdate(); });
+  nodeD.addEventListener('click', function(){ cD = 1 - cD; conjUpdate(); });
+  conjUpdate();
+
+  /* ── OVERDETERMINATION GRAPH (1.3) ── */
+  var dagA = 1, dagB = 1;
+  var nodeA = document.getElementById('node-a');
+  var nodeB = document.getElementById('node-b');
+
+  function dagUpdate(){
+    var s = Math.max(dagA, dagB);
+    var teal = 'var(--teal)', coral = 'var(--coral)', border = 'var(--border)', muted = 'var(--muted)', text = 'var(--text)';
+
+    // Node A
+    var aRect = nodeA.querySelector('rect');
+    var aLabel = document.getElementById('node-a-label');
+    var aVal = document.getElementById('node-a-val');
+    aRect.setAttribute('stroke', dagA ? teal : coral);
+    aVal.textContent = '= ' + dagA;
+    aVal.setAttribute('fill', dagA ? teal : coral);
+
+    // Node B
+    var bRect = nodeB.querySelector('rect');
+    var bLabel = document.getElementById('node-b-label');
+    var bVal = document.getElementById('node-b-val');
+    bRect.setAttribute('stroke', dagB ? teal : coral);
+    bVal.textContent = '= ' + dagB;
+    bVal.setAttribute('fill', dagB ? teal : coral);
+
+    // Edges
+    var edgeA = document.getElementById('edge-a-s');
+    var edgeB = document.getElementById('edge-b-s');
+    edgeA.setAttribute('stroke', dagA ? (s ? coral : teal) : border);
+    edgeA.setAttribute('marker-end', dagA ? (s ? 'url(#arr-hot)' : 'url(#arr-on)') : 'url(#arr-off)');
+    edgeB.setAttribute('stroke', dagB ? (s ? coral : teal) : border);
+    edgeB.setAttribute('marker-end', dagB ? (s ? 'url(#arr-hot)' : 'url(#arr-on)') : 'url(#arr-off)');
+
+    // Node S
+    var sRect = document.getElementById('node-s').querySelector('rect');
+    var sVal = document.getElementById('node-s-val');
+    var sLabel = document.getElementById('node-s-label');
+    sRect.setAttribute('stroke', s ? coral : teal);
+    sVal.textContent = '= ' + s;
+    sVal.setAttribute('fill', s ? coral : teal);
+    sLabel.textContent = s ? 'Plant shuts down' : 'Plant operates';
+
+    // Equation
+    document.getElementById('dag-eq').textContent = 'S = max(A, B) = max(' + dagA + ', ' + dagB + ') = ' + s;
+
+    // Result text
+    var res = document.getElementById('od-result');
+    if(dagA && dagB){
+      res.innerHTML = '<strong>Both factories dump.</strong> The plant shuts down. Removing either factory alone doesn\u2019t change the outcome\u2009\u2014\u2009the other\u2019s waste is sufficient. No <em>individual</em> factory passes the but-for test. But the <em>set</em> {A\u2009=\u20091, B\u2009=\u20091} does: had <em>both</em> stopped dumping, the plant would operate. <strong>The cause is the set of both factories together.</strong><br><span class="verdict no">But-for test: no individual cause \u2014 the cause is the set {A, B}</span>';
+    } else if(dagA && !dagB){
+      res.innerHTML = '<strong>Only Factory A dumps.</strong> The plant shuts down. Remove A\u2019s waste (click it): plant recovers. Here Factory A <em>is</em> a but-for cause\u2009\u2014\u2009the test works when there is no redundancy.<br><span class="verdict yes">But-for test: A is the cause</span>';
+    } else if(!dagA && dagB){
+      res.innerHTML = '<strong>Only Factory B dumps.</strong> The plant shuts down. Remove B\u2019s waste (click it): plant recovers. Factory B is a but-for cause.<br><span class="verdict yes">But-for test: B is the cause</span>';
+    } else {
+      res.innerHTML = '<strong>Neither factory dumps.</strong> The plant operates normally. No effect, no cause to identify.<br><span class="verdict yes">No shutdown \u2014 no cause needed</span>';
+    }
+  }
+
+  nodeA.addEventListener('click', function(){ dagA = 1 - dagA; dagUpdate(); });
+  nodeB.addEventListener('click', function(){ dagB = 1 - dagB; dagUpdate(); });
+  dagUpdate();
+
+  /* ── PREEMPTION GRAPH (1.3) ── */
+  var peDA = 1, peDB = 1;
+  var nodeDa = document.getElementById('node-da');
+  var nodeDb = document.getElementById('node-db');
+
+  function peUpdate(){
+    var teal = 'var(--teal)', coral = 'var(--coral)', border = 'var(--border)', muted = 'var(--muted)';
+
+    // Compute: AR = DA, BR = DB AND NOT AR, P = AR OR BR
+    var ar = peDA;
+    var br = peDB && !ar ? 1 : 0;
+    var p = ar || br ? 1 : 0;
+
+    // Node DA (1 = bad = coral)
+    nodeDa.querySelector('rect').setAttribute('stroke', peDA ? coral : teal);
+    document.getElementById('node-da-val').textContent = '= ' + peDA;
+    document.getElementById('node-da-val').setAttribute('fill', peDA ? coral : teal);
+
+    // Node DB (1 = bad = coral)
+    nodeDb.querySelector('rect').setAttribute('stroke', peDB ? coral : teal);
+    document.getElementById('node-db-val').textContent = '= ' + peDB;
+    document.getElementById('node-db-val').setAttribute('fill', peDB ? coral : teal);
+
+    // Node AH
+    document.getElementById('node-ar-rect').setAttribute('stroke', ar ? coral : border);
+    document.getElementById('node-ar-val').textContent = '= ' + ar;
+    document.getElementById('node-ar-val').setAttribute('fill', ar ? coral : muted);
+    // Node BH
+    document.getElementById('node-br-rect').setAttribute('stroke', br ? coral : border);
+    document.getElementById('node-br-val').textContent = '= ' + br;
+    document.getElementById('node-br-val').setAttribute('fill', br ? coral : muted);
+
+    // Node P
+    document.getElementById('node-pe-rect').setAttribute('stroke', p ? coral : teal);
+    document.getElementById('node-pe-val').textContent = '= ' + p;
+    document.getElementById('node-pe-val').setAttribute('fill', p ? coral : teal);
+    document.getElementById('node-pe-label').textContent = p ? 'Harbour polluted' : 'Harbour clean';
+
+    // Edges
+    document.getElementById('pe-da-ar').setAttribute('stroke', peDA ? coral : border);
+    document.getElementById('pe-da-ar').setAttribute('marker-end', peDA ? 'url(#arr3-hot)' : 'url(#arr3-off)');
+
+    document.getElementById('pe-db-br').setAttribute('stroke', (peDB && br) ? coral : border);
+    document.getElementById('pe-db-br').setAttribute('marker-end', (peDB && br) ? 'url(#arr3-hot)' : 'url(#arr3-off)');
+
+    document.getElementById('pe-ar-br').setAttribute('stroke', ar ? coral : border);
+    document.getElementById('pe-ar-br').setAttribute('marker-end', ar ? 'url(#arr3-hot)' : 'url(#arr3-off)');
+    document.getElementById('pe-ar-br-lbl').textContent = ar ? 'passage blocked' : '';
+
+    document.getElementById('pe-ar-p').setAttribute('stroke', ar ? coral : border);
+    document.getElementById('pe-ar-p').setAttribute('marker-end', ar ? 'url(#arr3-hot)' : 'url(#arr3-off)');
+
+    document.getElementById('pe-br-p').setAttribute('stroke', br ? coral : border);
+    document.getElementById('pe-br-p').setAttribute('marker-end', br ? 'url(#arr3-hot)' : 'url(#arr3-off)');
+
+    // Equation
+    document.getElementById('pe-eq').textContent = 'AH = DA = ' + ar + ' \u00B7 BH = DB \u2227 \u00ACAH = ' + br + ' \u00B7 P = AH \u2228 BH = ' + p;
+
+    // Result
+    var res = document.getElementById('pe-result');
+    if(peDA && peDB){
+      res.innerHTML = '<strong>Ship A wants to dump, passage is blocked, Ship B is turned away.</strong> A\u2019s waste is in the harbour. But the but-for test says A is not the cause: had A not dumped, B would have. The harbour would be polluted either way.<br><span class="verdict no">But-for test: A is not a cause (wrong!)</span>';
+    } else if(peDA && !peDB){
+      res.innerHTML = '<strong>Only Ship A wants to dump.</strong> A\u2019s waste pollutes the harbor. No backup ship exists. A is clearly a but-for cause.<br><span class="verdict yes">But-for test: A is the cause</span>';
+    } else if(!peDA && peDB){
+      res.innerHTML = '<strong>Ship A doesn\u2019t dump.</strong> The passage stays open. Ship B sails in and dumps its waste. B is a but-for cause.<br><span class="verdict yes">But-for test: B is the cause</span>';
+    } else {
+      res.innerHTML = '<strong>Neither ship dumps.</strong> The harbor stays clean.<br><span class="verdict yes">No pollution \u2014 no cause needed</span>';
+    }
+  }
+
+  nodeDa.addEventListener('click', function(){ peDA = 1 - peDA; peUpdate(); });
+  nodeDb.addEventListener('click', function(){ peDB = 1 - peDB; peUpdate(); });
+  peUpdate();
+
+  /* ── VOTING / RESPONSIBILITY CALCULATOR ── */
+  const rcYes = document.getElementById('rc-yes');
+  const rcNo = document.getElementById('rc-no');
+  const TOTAL_VOTES = 101;
+
+  function updateVoting(source){
+    let yes = parseInt(rcYes.value);
+    let no  = parseInt(rcNo.value);
+
+    if(source === 'yes'){
+      no = TOTAL_VOTES - yes;
+      rcNo.value = no;
+    } else if(source === 'no'){
+      yes = TOTAL_VOTES - no;
+      rcYes.value = yes;
+    }
+
+    const total = yes + no;
+    const majority = Math.floor(total / 2) + 1;
+
+    document.getElementById('rc-yes-val').textContent = yes;
+    document.getElementById('rc-no-val').textContent = no;
+
+    if(yes < majority){
+      document.getElementById('rc-k').textContent = '—';
+      document.getElementById('rc-dr').textContent = '0';
+      document.getElementById('rc-desc').textContent = 'Policy doesn\'t pass. No voter is a cause.';
+      document.getElementById('rc-k').style.color = 'var(--muted)';
+      document.getElementById('rc-dr').style.color = 'var(--muted)';
+      return;
+    }
+
+    const surplus = yes - majority; // votes beyond the minimum needed
+    const k = surplus; // must flip k "yes" voters to make this one pivotal
+    const dr = 1 / (1 + k);
+
+    document.getElementById('rc-k').textContent = k;
+    document.getElementById('rc-k').style.color = 'var(--teal)';
+    document.getElementById('rc-dr').textContent = k === 0 ? '1' : '1/' + (k + 1);
+    document.getElementById('rc-dr').style.color = k === 0 ? 'var(--coral)' : 'var(--teal)';
+
+    if(k === 0){
+      document.getElementById('rc-desc').textContent = 'Each voter is pivotal — removing any one flips the outcome.';
+    } else if(k === 1){
+      document.getElementById('rc-desc').textContent = 'One other voter must change before any individual becomes pivotal.';
+    } else {
+      document.getElementById('rc-desc').textContent = k + ' other voters must change before any individual becomes pivotal.';
+    }
+  }
+  rcYes.addEventListener('input', function(){ updateVoting('yes'); });
+  rcNo.addEventListener('input', function(){ updateVoting('no'); });
+  updateVoting('yes');
+
+  /* ── RIVER POLLUTION / BLAMEWORTHINESS WIDGET ── */
+  var RV_A = 100;  // fixed
+  var RV_B = 60;   // fixed
+  var rvK = document.getElementById('rv-k');
+  var rvKlo = document.getElementById('rv-klo');
+  var rvKhi = document.getElementById('rv-khi');
+  var barMax = 200;
+
+  // Compute dr for a single company at a given threshold.
+  // Counterfactual space is binary: each company either dumps its full amount or nothing.
+  function drAt(dump, otherDump, kVal){
+    var total = dump + otherDump;
+    if(total < kVal) return 0;        // fish survive — not a cause
+    if(dump === 0) return 0;           // dumps nothing
+    if(otherDump < kVal) return 1;     // but-for cause: removing this company alone saves the fish
+    // Other company alone already meets/exceeds the threshold.
+    // Binary contingency: set other = 0. Does this company then become pivotal?
+    // Pivotal iff dump alone ≥ kVal (fish die with it, survive without it).
+    if(dump >= kVal) return 0.5;       // symmetric overdetermination: N=1 contingency → dr = 1/(1+1)
+    return 0;                          // other alone causes harm; this company is redundant in all binary worlds
+  }
+
+  function updateRiver(){
+    var a = RV_A;
+    var b = RV_B;
+    var k = parseInt(rvK.value);
+    var klo = parseInt(rvKlo.value);
+    var khi = parseInt(rvKhi.value);
+
+    // Enforce belief range straddles threshold: klo < k < khi
+    if(klo >= k){ klo = k - 1; rvKlo.value = klo; }
+    if(khi <= k){ khi = k + 1; rvKhi.value = khi; }
+    if(klo < 10){ klo = 10; rvKlo.value = klo; }
+    if(khi > 200){ khi = 200; rvKhi.value = khi; }
+
+    var total = a + b;
+    var die = total >= k;
+
+    // Labels
+    document.getElementById('rv-k-val').textContent = k;
+    document.getElementById('rv-klo-val').textContent = klo;
+    document.getElementById('rv-khi-val').textContent = khi;
+    document.getElementById('rv-range-lbl').textContent = klo + ', ' + khi;
+    document.getElementById('rv-total-lbl').textContent = 'Total: ' + total + ' kg';
+
+    // Bar
+    var pctA = (a / barMax * 100).toFixed(1);
+    var pctB = (b / barMax * 100).toFixed(1);
+    var pctK = (k / barMax * 100).toFixed(1);
+    var pctKlo = (klo / barMax * 100).toFixed(1);
+    var pctKhi = (khi / barMax * 100).toFixed(1);
+    document.getElementById('rv-bar-a').style.width = pctA + '%';
+    document.getElementById('rv-bar-b').style.left = pctA + '%';
+    document.getElementById('rv-bar-b').style.width = pctB + '%';
+    document.getElementById('rv-bar-k').style.left = pctK + '%';
+    document.getElementById('rv-bar-k-lbl').style.left = 'calc(' + pctK + '% + 4px)';
+    document.getElementById('rv-bar-k2').style.left = pctK + '%';
+    document.getElementById('rv-bar-belief').style.left = pctKlo + '%';
+    document.getElementById('rv-bar-belief').style.width = (pctKhi - pctKlo).toFixed(1) + '%';
+    var beliefMid = ((klo + khi) / 2 / barMax * 100).toFixed(1);
+    document.getElementById('rv-bar-belief-lbl').style.left = 'calc(' + beliefMid + '% - 28px)';
+
+    // Outcome
+    var outcomeEl = document.getElementById('rv-outcome');
+    if(die){
+      outcomeEl.innerHTML = '<span style="color:var(--coral)">Fish die</span> (' + total + ' \u2265 ' + k + ')';
+      outcomeEl.style.borderColor = 'var(--coral)';
+    } else {
+      outcomeEl.innerHTML = '<span style="color:var(--teal)">Fish survive</span> (' + total + ' < ' + k + ')';
+      outcomeEl.style.borderColor = 'var(--teal)';
+    }
+
+    // Degree of responsibility at actual k
+    var aDr = drAt(a, b, k);
+    var bDr = drAt(b, a, k);
+
+    // Degree of blame: expected dr over uniform [klo, khi]
+    var aDrSum = 0, bDrSum = 0;
+    var nSteps = khi - klo + 1;
+    for(var kk = klo; kk <= khi; kk++){
+      aDrSum += drAt(a, b, kk);
+      bDrSum += drAt(b, a, kk);
+    }
+    var aDb = aDrSum / nSteps;
+    var bDb = bDrSum / nSteps;
+
+    // Display dr
+    var aDrEl = document.getElementById('rv-a-dr');
+    var bDrEl = document.getElementById('rv-b-dr');
+    function drLabel(d){ return d === 1 ? 'dr = 1' : d === 0.5 ? 'dr = \u00BD' : 'dr = 0'; }
+    aDrEl.textContent = drLabel(aDr);
+    bDrEl.textContent = drLabel(bDr);
+    aDrEl.style.color = aDr === 1 ? 'var(--coral)' : aDr > 0 ? 'var(--teal)' : 'var(--muted)';
+    bDrEl.style.color = bDr === 1 ? 'var(--coral)' : bDr > 0 ? 'var(--teal)' : 'var(--muted)';
+
+    // Display db
+    var aDbEl = document.getElementById('rv-a-db');
+    var bDbEl = document.getElementById('rv-b-db');
+    aDbEl.textContent = 'db = ' + aDb.toFixed(2);
+    bDbEl.textContent = 'db = ' + bDb.toFixed(2);
+    aDbEl.style.color = aDb > 0.7 ? 'var(--coral)' : aDb > 0.01 ? 'var(--amber)' : 'var(--muted)';
+    bDbEl.style.color = bDb > 0.7 ? 'var(--coral)' : bDb > 0.01 ? 'var(--amber)' : 'var(--muted)';
+
+  }
+  rvK.addEventListener('input', updateRiver);
+  rvKlo.addEventListener('input', updateRiver);
+  rvKhi.addEventListener('input', updateRiver);
+  updateRiver();
+
+  /* ── HARM CALCULATOR ── */
+  const hcLeak = document.getElementById('hc-leak');
+  const hcDefault = document.getElementById('hc-default');
+  const hcDr = document.getElementById('hc-dr');
+
+  function updateHarm(){
+    const leak = parseFloat(hcLeak.value);
+    const def = parseFloat(hcDefault.value);
+    const dr = parseFloat(hcDr.value);
+
+    document.getElementById('hc-leak-val').textContent = leak.toFixed(1);
+    document.getElementById('hc-default-val').textContent = def.toFixed(1);
+    document.getElementById('hc-dr-val').textContent = dr.toFixed(2);
+
+    // Normalise: 0 kt = utility 1, 20 kt = utility 0
+    const maxLeak = 20;
+    const uo = Math.max(0, 1 - leak / maxLeak);
+    const d = Math.max(0, 1 - def / maxLeak);
+    const gap = Math.max(0, d - uo);
+    const harm = gap * dr;
+
+    document.getElementById('ht-uo').textContent = uo.toFixed(3);
+    document.getElementById('ht-d').textContent = d.toFixed(3);
+    document.getElementById('ht-gap').textContent = gap.toFixed(3);
+    document.getElementById('ht-dr').textContent = dr.toFixed(2);
+    document.getElementById('ht-harm').textContent = harm.toFixed(3);
+  }
+  hcLeak.addEventListener('input', updateHarm);
+  hcDefault.addEventListener('input', updateHarm);
+  hcDr.addEventListener('input', updateHarm);
+  updateHarm();
+})();
+</script>
+</body>
+</html>
